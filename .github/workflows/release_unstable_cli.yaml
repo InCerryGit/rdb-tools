@@ -50,7 +50,7 @@ jobs:
       name: Build and upload linux cli artifact
       runs-on: ubuntu-latest
       container:
-        image: mcr.microsoft.com/dotnet/sdk:6.0-focal-arm64v8
+        image: mcr.microsoft.com/dotnet/sdk:6.0-focal
         volumes:
           - /home/runner/work:/home/runner/work
       strategy:
@@ -62,6 +62,8 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v1
+        - name: Add library
+          run:  apt update && apt -y install clang llvm libkrb5-dev libtool libssl-dev make gcc libc-dev libpq-dev zlib1g-dev libpam-dev libedit-dev libselinux1-dev zip
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
