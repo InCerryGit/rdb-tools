@@ -19,7 +19,8 @@ jobs:
           matrix:
               targets:
                   [
-                    "linux-x64"
+                    "linux-x64",
+                    "osx-x64"
                   ]
       steps:
         - name: Checkout
@@ -39,7 +40,7 @@ jobs:
           run: |
               mkdir /home/runner/work/release
               ls /home/runner/work/clis/
-              zip -j /home/runner/work/release/rdb-cli.$VERSION.$RID.zip /home/runner/work/clis/$RID/*
+              zip -j /home/runner/work/release/rdb-cli.$VERSION.$RID.zip /home/runner/work/clis/$RID/* -x='/home/runner/work/clis/$RID/*.dbg'
         - name: Upload artifacts
           uses: actions/upload-artifact@v2
           with:
