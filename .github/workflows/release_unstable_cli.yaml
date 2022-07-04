@@ -50,7 +50,7 @@ jobs:
       container:
         image: mcr.microsoft.com/dotnet/sdk:6.0-alpine
         volumes:
-          - /home/runner/work/clis:/home/runner/work/clis
+          - /home/runner/work:/home/runner/work
       strategy:
           matrix:
               targets:
