@@ -15,7 +15,14 @@ jobs:
           matrix:
               targets:
                   [
-                    "linux-x64"
+                    "linux-x64",
+                    "linux-arm",
+                    "linux-arm64",
+                    "osx-x64",
+                    "win-x64",
+                    "win-x86",
+                    "win-arm",
+                    "win-arm64"
                   ]
       steps:
         - name: Checkout
@@ -25,7 +32,7 @@ jobs:
           with:
               dotnet-version: "6.0.x"
         - name: Add library
-          run:  apt -y install llvm
+          run:  sudo apt -y install llvm
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
