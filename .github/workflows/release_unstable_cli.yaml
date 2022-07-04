@@ -10,7 +10,11 @@ on:
 jobs:
     publish_linux_and_osx_cli:
       name: Build and upload linux and osx cli artifact
-      runs-on: ubuntu-latest    
+      runs-on: ubuntu-latest
+      container:
+        image: mcr.microsoft.com/dotnet/sdk:6.0-focal
+        volumes:
+          - /home/runner/work:/home/runner/work
       strategy:
           matrix:
               targets:
@@ -20,10 +24,6 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v1
-        - name: Set up .NET Core
-          uses: actions/setup-dotnet@v1
-          with:
-              dotnet-version: "6.0.x"
         - name: Add library
           run:  sudo apt -y install llvm libkrb5-dev 
         - name: Publish .NET app
