@@ -19,6 +19,7 @@
 		<PackAsTool>true</PackAsTool>
 		<InvariantGlobalization>true</InvariantGlobalization>
 		<IlcDisableReflection>true</IlcDisableReflection>
+		<StripSymbols>true</StripSymbols>
 	</PropertyGroup>
 
 	<ItemGroup>
