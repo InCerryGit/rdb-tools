@@ -50,7 +50,7 @@ jobs:
       name: Build and upload linux cli artifact
       runs-on: ubuntu-latest
       container:
-        image: mcr.microsoft.com/dotnet/sdk:6.0-focal
+        image: mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-20210719121212-8a8d3be
         volumes:
           - /home/runner/work:/home/runner/work
       strategy:
