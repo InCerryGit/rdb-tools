@@ -60,14 +60,10 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v1
-        - name: Set up .NET Core
-          uses: actions/setup-dotnet@v1
-          with:
-              dotnet-version: "6.0.x"
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
-              VERSION: ${{ github.ref_name }}
+              VERSION: test-aot
           run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $RID -p:PublishSingleFile=true -p:PublishTrimmed=true -p:DebugType=None -p:DebugSymbols=false -p:EnableCompressionInSingleFile=true --self-contained true --output /home/runner/work/clis/$RID
 
         - name: Package assets
