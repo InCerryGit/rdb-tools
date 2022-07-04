@@ -7,22 +7,54 @@ on:
         - "*.*.*-rc*"
 
 jobs:
-    publish_cli:
-      name: Build and upload cli artifact
+    publish_windows_cli:
+      name: Build and upload windows cli artifact
       runs-on: ubuntu-latest    
       strategy:
           matrix:
               targets:
                   [
-                      "linux-x64",
-                      "linux-musl-x64",
-                      "linux-arm",
-                      "linux-arm64",
-                      "osx-x64",
-                      "win-x64",
-                      "win-x86",
-                      "win-arm",
-                      "win-arm64",
+                    "linux-x64"
+                  ]
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v1
+        - name: Set up .NET Core
+          uses: actions/setup-dotnet@v1
+          with:
+              dotnet-version: "6.0.x"
+        - name: Publish .NET app
+          env:
+              RID: ${{ matrix.targets }}
+              VERSION: ${{ github.ref_name }}
+          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $RID -p:PublishSingleFile=true -p:PublishTrimmed=true -p:DebugType=None -p:DebugSymbols=false -p:EnableCompressionInSingleFile=true --self-contained true --output /home/runner/work/clis/$RID
+
+        - name: Package assets
+          env:
+              RID: ${{ matrix.targets }}
+              VERSION: ${{ github.ref_name }}
+          run: |
+              mkdir /home/runner/work/release
+              ls /home/runner/work/clis/
+              zip -j /home/runner/work/release/rdb-cli.$VERSION.$RID.zip /home/runner/work/clis/$RID/*
+        - name: Upload artifacts
+          uses: actions/upload-artifact@v2
+          with:
+              name: rdb-cli
+              path: /home/runner/work/release
+    
+    publish_linux_musl_x64_cli:
+      name: Build and upload linux musl x64 cli artifact
+      runs-on: ubuntu-latest
+      container:
+        image: mcr.microsoft.com/dotnet/sdk:6.0-alpine
+        volumes:
+          - /home/runner/work/clis:/home/runner/work/clis
+      strategy:
+          matrix:
+              targets:
+                  [
+                      "linux-musl-x64"
                   ]
       steps:
         - name: Checkout
