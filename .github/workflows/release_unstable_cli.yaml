@@ -61,7 +61,7 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v1
         - name: add sdk
-          run:  apk add clang libexecinfo binutils musl-dev build-base zlib-static krb5-dev zip
+          run:  apk add clang libexecinfo binutils musl-dev build-base zlib-static krb5-dev zip llvm
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
