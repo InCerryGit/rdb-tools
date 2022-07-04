@@ -66,6 +66,8 @@ jobs:
           uses: actions/setup-dotnet@v1
           with:
               dotnet-version: "6.0.x"
+        - name: Add library
+          run:  apt update && apt -y install clang llvm libkrb5-dev zip
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
