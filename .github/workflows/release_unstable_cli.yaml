@@ -8,16 +8,14 @@ on:
         - "*.*.*-rc*"
 
 jobs:
-    publish_windows_cli:
-      name: Build and upload windows cli artifact
+    publish_linux_and_osx_cli:
+      name: Build and upload linux and osx cli artifact
       runs-on: ubuntu-latest    
       strategy:
           matrix:
               targets:
                   [
                     "linux-x64",
-                    "linux-arm",
-                    "linux-arm64",
                     "osx-x64"
                   ]
       steps:
