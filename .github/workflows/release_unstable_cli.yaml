@@ -25,7 +25,7 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v1
         - name: Add library
-          run:  apt update && apt -y install clang llvm libkrb5-dev 
+          run:  apt update && apt -y install clang llvm libkrb5-dev libtool libssl-dev
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
