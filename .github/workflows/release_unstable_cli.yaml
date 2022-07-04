@@ -2,7 +2,7 @@ name: Release_CLI_Unstable
 
 on:
     push:
-      branches: [ dev, main, 'feat/**' ]
+      branches: [ dev, main, 'feat/**','*.*.*-beta*']
       tags:
         - "*.*.*-beta*"
         - "*.*.*-rc*"
@@ -65,13 +65,13 @@ jobs:
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
-              VERSION: 0.3.1-bate1
+              VERSION: ${{ github.ref_name }}
           run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $RID -p:PublishTrimmed=true -p:DebugType=None -p:DebugSymbols=false --self-contained true --output /home/runner/work/clis/$RID
 
         - name: Package assets
           env:
               RID: ${{ matrix.targets }}
-              VERSION: 0.3.1-bate1
+              VERSION: ${{ github.ref_name }}
           run: |
               mkdir /home/runner/work/release
               ls /home/runner/work/clis/
