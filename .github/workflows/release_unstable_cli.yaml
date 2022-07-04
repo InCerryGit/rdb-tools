@@ -84,7 +84,7 @@ jobs:
 
     release_cli:
         name: Publish release
-        needs: ['publish_windows_cli','publish_linux_musl_x64_cli']
+        needs: ['publish_linux_musl_x64_cli']
         runs-on: ubuntu-latest
     
         steps:          
