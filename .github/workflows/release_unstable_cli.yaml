@@ -18,11 +18,7 @@ jobs:
                     "linux-x64",
                     "linux-arm",
                     "linux-arm64",
-                    "osx-x64",
-                    "win-x64",
-                    "win-x86",
-                    "win-arm",
-                    "win-arm64"
+                    "osx-x64"
                   ]
       steps:
         - name: Checkout
