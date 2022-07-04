@@ -61,7 +61,7 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v1
         - name: add sdk
-          run:  apk add clang libexecinfo binutils musl-dev build-base zlib-static krb5-dev
+          run:  apk add clang libexecinfo binutils musl-dev build-base zlib-static krb5-dev zip
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
@@ -84,7 +84,7 @@ jobs:
 
     release_cli:
         name: Publish release
-        needs: publish_linux_musl_x64_cli
+        needs: ['publish_windows_cli','publish_linux_musl_x64_cli']
         runs-on: ubuntu-latest
     
         steps:          
