@@ -25,12 +25,12 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v1
         - name: Add library
-          run:  apt -y install llvm libkrb5-dev 
+          run:  apt update && apt -y install llvm libkrb5-dev 
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
               VERSION: ${{ github.ref_name }}
-          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $RID -p:PublishSingleFile=true -p:PublishTrimmed=true -p:DebugType=None -p:DebugSymbols=false -p:EnableCompressionInSingleFile=true --self-contained true --output /home/runner/work/clis/$RID
+          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $RID -p:DebugType=None -p:DebugSymbols=false --self-contained true --output /home/runner/work/clis/$RID
 
         - name: Package assets
           env:
