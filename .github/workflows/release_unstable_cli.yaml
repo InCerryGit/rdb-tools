@@ -2,6 +2,7 @@ name: Release_CLI_Unstable
 
 on:
     push:
+      branches: [ dev, main, 'feat/**' ]
       tags:
         - "*.*.*-beta*"
         - "*.*.*-rc*"
@@ -85,7 +86,7 @@ jobs:
 
     release_cli:
         name: Publish release
-        needs: publish_cli
+        needs: publish_linux_musl_x64_cli
         runs-on: ubuntu-latest
     
         steps:          
