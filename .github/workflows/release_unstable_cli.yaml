@@ -104,7 +104,7 @@ jobs:
           env:
               RID: ${{ matrix.targets }}
               VERSION: ${{ github.ref_name }}
-          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $($RID) -p:DebugType=None -p:DebugSymbols=false --self-contained true --output ../publish/$($RID)
+          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r win-x64 -p:DebugType=None -p:DebugSymbols=false --self-contained true --output ../publish/win-x64
 
         - name: Package assets
           env:
@@ -113,7 +113,7 @@ jobs:
           run: |
               mkdir ../release
               ls ../publish
-              zip -j ../release/rdb-cli.%VERSION%.%RID%.zip ../publish/%RID%/* -x='../publish/%RID%/*.pdb'
+              zip -j ../release/rdb-cli.%VERSION%.win-x64.zip ../publish/win-x64/* -x='../publish/win-x64/*.pdb'
         - name: Upload artifacts
           uses: actions/upload-artifact@v2
           with:
