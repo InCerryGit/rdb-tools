@@ -19,55 +19,14 @@ jobs:
           matrix:
               targets:
                   [
-                    "linux-x64"
+                    "linux-x64",
+                    "win-x64"
                   ]
       steps:
         - name: Checkout
           uses: actions/checkout@v1
         - name: Add library
           run:  apt update && apt -y install clang llvm libkrb5-dev libtool libssl-dev make gcc libc-dev libpq-dev zlib1g-dev libpam-dev libedit-dev libselinux1-dev zip
-        - name: Publish .NET app
-          env:
-              RID: ${{ matrix.targets }}
-              VERSION: ${{ github.ref_name }}
-          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $RID -p:DebugType=None -p:DebugSymbols=false --self-contained true --output /home/runner/work/clis/$RID
-
-        - name: Package assets
-          env:
-              RID: ${{ matrix.targets }}
-              VERSION: ${{ github.ref_name }}
-          run: |
-              mkdir /home/runner/work/release
-              ls /home/runner/work/clis/
-              zip -j /home/runner/work/release/rdb-cli.$VERSION.$RID.zip /home/runner/work/clis/$RID/* -x='/home/runner/work/clis/$RID/*.dbg'
-        - name: Upload artifacts
-          uses: actions/upload-artifact@v2
-          with:
-              name: rdb-cli
-              path: /home/runner/work/release
-
-    publish_linux_arm64:
-      name: Build and upload linux cli artifact
-      runs-on: ubuntu-latest
-      container:
-        image: mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-20210719121212-8a8d3be
-        volumes:
-          - /home/runner/work:/home/runner/work
-      strategy:
-          matrix:
-              targets:
-                  [
-                    "linux-arm64"
-                  ]
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v1
-        - name: Set up .NET Core
-          uses: actions/setup-dotnet@v1
-          with:
-              dotnet-version: "6.0.x"
-        - name: Add library
-          run:  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF7F09730B3F0A4 && apt update && apt -y install clang llvm libkrb5-dev libtool libssl-dev make gcc libc-dev libpq-dev zlib1g-dev libpam-dev libedit-dev libselinux1-dev zip
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
