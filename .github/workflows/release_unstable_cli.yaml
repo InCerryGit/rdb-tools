@@ -19,8 +19,7 @@ jobs:
           matrix:
               targets:
                   [
-                    "linux-x64",
-                    "win-x64"
+                    "linux-x64"
                   ]
       steps:
         - name: Checkout
@@ -105,21 +104,21 @@ jobs:
           env:
               RID: ${{ matrix.targets }}
               VERSION: ${{ github.ref_name }}
-          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r $RID -p:DebugType=None -p:DebugSymbols=false --self-contained true --output c:/home/runner/work/clis/$RID
+          run: dotnet publish src/RDBCli/RDBCli.csproj -c Release -r %RID% -p:DebugType=None -p:DebugSymbols=false --self-contained true --output ../publish/%RID%
 
         - name: Package assets
           env:
               RID: ${{ matrix.targets }}
               VERSION: ${{ github.ref_name }}
           run: |
-              mkdir c:/home/runner/work/release
-              ls c:/home/runner/work/clis/
-              zip -j c:/home/runner/work/release/rdb-cli.$VERSION.$RID.zip c:/home/runner/work/clis/$RID/* -x='c:/home/runner/work/clis/$RID/*.dbg'
+              mkdir ../release
+              ls ../publish
+              zip -j ../release/rdb-cli.%VERSION%.%RID%.zip ../publish/%RID%/* -x='../publish/%RID%/*.pdb'
         - name: Upload artifacts
           uses: actions/upload-artifact@v2
           with:
               name: rdb-cli
-              path: c:/home/runner/work/release
+              path: ../release
     
     release_cli:
         name: Publish release
