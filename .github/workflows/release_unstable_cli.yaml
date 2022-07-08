@@ -112,8 +112,8 @@ jobs:
               VERSION: ${{ github.ref_name }}
           run: |
               mkdir ../release
-              rm -f *.pdb
-              ls ../publish
+              rm -fo ../publish/win-x64/*.pdb
+              ls ../publish/
               Compress-Archive -Path ../publish/win-x64/* -DestinationPath ../release/rdb-cli.$(VERSION).win-x64.zip
         - name: Upload artifacts
           uses: actions/upload-artifact@v2
