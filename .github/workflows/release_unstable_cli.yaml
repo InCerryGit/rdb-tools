@@ -112,17 +112,18 @@ jobs:
               VERSION: ${{ github.ref_name }}
           run: |
               mkdir ../release
+              rm -f *.pdb
               ls ../publish
-              zip -j ../release/rdb-cli.%VERSION%.win-x64.zip ../publish/win-x64/* -x='../publish/win-x64/*.pdb'
+              Compress-Archive -Path ../publish/win-x64/* -DestinationPath ../release/rdb-cli.$(VERSION).win-x64.zip
         - name: Upload artifacts
           uses: actions/upload-artifact@v2
           with:
               name: rdb-cli
               path: ../release
-    
+
     release_cli:
         name: Publish release
-        needs: ['publish_linux_musl_x64_cli']
+        needs: ['publish_linux_x64','publish_linux_musl_x64_cli','publish_windows_x64']
         runs-on: ubuntu-latest
     
         steps:          
