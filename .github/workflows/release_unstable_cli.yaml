@@ -91,7 +91,10 @@ jobs:
           matrix:
               targets:
                   [
-                    "win-x64"
+                    "win-x64",
+                    "win-x86",
+                    "win-arm",
+                    "win-arm64"
                   ]
       steps:
         - name: Checkout
