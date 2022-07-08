@@ -92,7 +92,6 @@ jobs:
               targets:
                   [
                     "win-x64",
-                    "win-x86",
                     "win-arm64"
                   ]
       steps:
