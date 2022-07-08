@@ -18,7 +18,6 @@
 		<ToolCommandName>$(AssemblyName)</ToolCommandName>
 		<PackAsTool>true</PackAsTool>
 		<InvariantGlobalization>true</InvariantGlobalization>
-		<IlcDisableReflection>true</IlcDisableReflection>
 		<StripSymbols>true</StripSymbols>
 		<UseAot>true</UseAot>
 	</PropertyGroup>

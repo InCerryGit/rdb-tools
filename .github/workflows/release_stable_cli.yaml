@@ -165,7 +165,7 @@ jobs:
 
     release_cli:
         name: Publish release
-        needs: publish_cli
+        needs: ['publish_cli','publish_linux_x64_aot','publish_linux_musl_x64_cli_aot','publish_windows_x64_aot']
         runs-on: ubuntu-latest
     
         steps:          
