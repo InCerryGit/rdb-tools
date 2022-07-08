@@ -25,6 +25,10 @@ jobs:
       steps:
         - name: Checkout
           uses: actions/checkout@v1
+        - name: Setup .NET Core SDK 6.x
+          uses: actions/setup-dotnet@v2
+          with:
+            dotnet-version: 6.x
         #- name: Add library
         #  run:  apt update && apt -y install clang llvm libkrb5-dev libtool libssl-dev make gcc libc-dev libpq-dev zlib1g-dev libpam-dev libedit-dev libselinux1-dev zip binutils-aarch64-linux-gnu
         - name: Publish .NET app
