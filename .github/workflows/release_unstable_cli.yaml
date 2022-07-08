@@ -119,7 +119,7 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
               name: rdb-cli
-              path: ../release
+              path: D:/a/rdb-tools/release
 
     release_cli:
         name: Publish release
