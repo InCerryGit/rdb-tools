@@ -26,7 +26,7 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v1
         - name: Add library
-          run:  apt update && apt -y install cmake llvm-9 clang-9 build-essential python curl git lldb-6.0 liblldb-6.0-dev libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev libssl-dev libnuma-dev libkrb5-dev zlib1g-dev ninja-build zip
+          run:  apt update && apt -y install cmake llvm clang build-essential python curl git lldb-6.0 liblldb-6.0-dev libunwind8 libunwind8-dev gettext libicu-dev liblttng-ust-dev libssl-dev libnuma-dev libkrb5-dev zlib1g-dev ninja-build zip
         - name: Publish .NET app
           env:
               RID: ${{ matrix.targets }}
