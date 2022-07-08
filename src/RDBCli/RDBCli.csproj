@@ -20,10 +20,14 @@
 		<InvariantGlobalization>true</InvariantGlobalization>
 		<IlcDisableReflection>true</IlcDisableReflection>
 		<StripSymbols>true</StripSymbols>
+		<UseAot>false</UseAot>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="System.CommandLine" Version="2.0.0-beta3.22114.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(UseAot)">
 		<PackageReference Include="Microsoft.DotNet.ILCompiler;runtime.linux-x64.Microsoft.DotNet.ILCompiler;runtime.win-x64.Microsoft.DotNet.ILCompiler" Version="7.0.0-*"/>
 	</ItemGroup>
 
